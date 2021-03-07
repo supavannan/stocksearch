@@ -4,7 +4,7 @@ import IconButton from "@material-ui/core/IconButton";
 import DeleteIcon from "@material-ui/icons/Delete";
 
 const headingsInfo = {
-  Symbol: { name: "Ticker", viewing: true },
+  Symbol: { name: "Symbol", viewing: true },
   EVToEBITDA: { name: "EV / EBITDA", viewing: true },
   TrailingPE: { name: "Trailing PE", viewing: true },
   ForwardPE: { name: "Forward PE", viewing: true },
@@ -12,6 +12,7 @@ const headingsInfo = {
   RevenueTTM: { name: "Revenue (TTM)", viewing: true },
   BookValue: { name: "Book Value", viewing: true },
   Beta: { name: "Beta", viewing: true },
+  PEGRatio: { name: "PEG Ratio" },
 };
 
 const TableHeader = (props) => {
@@ -20,7 +21,11 @@ const TableHeader = (props) => {
 
   for (let heading in tableHeadings) {
     if (tableHeadings[heading]) {
-      headings.push(<th>{headingsInfo[heading].name}</th>);
+      if (headingsInfo[heading]) {
+        headings.push(<th>{headingsInfo[heading].name}</th>);
+      } else {
+        headings.push(<th>{heading}</th>);
+      }
     }
   }
   return (

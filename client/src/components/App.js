@@ -1,4 +1,6 @@
 import React, { Component, useState } from "react";
+import { BrowserRouter, Route } from "react-router-dom";
+import Header from "./Header";
 import Table from "./Table";
 import Form from "./Form";
 import CheckboxOptions from "./CheckboxOptions";
@@ -8,11 +10,19 @@ const tableHeadings = {
   EVToEBITDA: true,
   TrailingPE: true,
   ForwardPE: true,
+  PEGRatio: true,
   ReturnOnEquityTTM: true,
   RevenueTTM: true,
   BookValue: false,
   Beta: false,
 };
+
+//const Header = () => <h2>Stock Search</h2>;
+const Dashboard = () => <h2>Dashboard</h2>;
+const Configure = () => <h2>Configure</h2>;
+const Landing = () => (
+  <h2>Welcome to Stock Search - Login to Start Searching</h2>
+);
 
 class App extends Component {
   state = {
@@ -41,26 +51,15 @@ class App extends Component {
     });
   };
 
-  //   xhandleTickerSubmit = (stock) => {
-  //     fetch(endpoint)
-  //       .then((result) => result.json())
-  //       .then((result) => {
-  //         this.setState({
-  //           stocks: [...this.state.stocks, result],
-  //         });
-  //       });
-  //   };
-
   //function will be passed as a prop to the Form component
   handleTickerSubmit = async (stock) => {
-    const apiURL = "https://www.alphavantage.co/query?function=OVERVIEW";
+    const apiBaseURL = "https://www.alphavantage.co/query?function=OVERVIEW";
     const apiKEY = "IJB337MGMJOWQIB0";
     const ticker = stock.ticker.toUpperCase();
-    let endpoint = apiURL + "&symbol=" + ticker + "&apikey=" + apiKEY;
-    //fetch and add to list of stocks held in app state
+    const endpoint = `${apiBaseURL}&symbol=${ticker}&apikey=${apiKEY}`;
     const result = await fetch(endpoint);
     const resultJSON = await result.json();
-    //add to array of stocks
+    //add to array of stocks which is stored in the app state
     this.setState({
       stocks: [...this.state.stocks, resultJSON],
     });
@@ -70,16 +69,24 @@ class App extends Component {
     const { stocks, tableHeadings } = this.state;
     return (
       <div className="container">
-        <Table
-          stockData={stocks}
-          removeStock={this.removeStock}
-          tableHeadings={tableHeadings}
-        />
-        <Form handleSubmit={this.handleTickerSubmit} />
-        <CheckboxOptions
-          tableHeadings={tableHeadings}
-          updateHeadings={this.updateHeadings}
-        />
+        <BrowserRouter>
+          <div>
+            <Header />
+            <Route exact path="/" component={Landing} />
+            <Route exact path="/dashboard" component={Dashboard} />
+            <Route path="/dashboard/configure" component={Configure} />
+            <Table
+              stockData={stocks}
+              removeStock={this.removeStock}
+              tableHeadings={tableHeadings}
+            />
+            <Form handleSubmit={this.handleTickerSubmit} />
+            <CheckboxOptions
+              tableHeadings={tableHeadings}
+              updateHeadings={this.updateHeadings}
+            />
+          </div>
+        </BrowserRouter>
       </div>
     );
   }

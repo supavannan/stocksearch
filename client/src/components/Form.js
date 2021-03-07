@@ -19,6 +19,7 @@ class Form extends Component {
 
   submitTickerForm = (e) => {
     //this.state holds "ticker"
+    //handleSubmit refers to the handleTickerSubmit function
     this.props.handleSubmit(this.state);
     //reset form state to initial state to clear form
     this.setState(this.initialState);
@@ -28,7 +29,7 @@ class Form extends Component {
   render() {
     const { ticker, other } = this.state;
     return (
-      <form style={{ width: "90%" }} onSubmit={this.submitTickerForm}>
+      <form style={{ width: "100%" }} onSubmit={this.submitTickerForm}>
         <label htmlFor="name">Ticker</label>
         <input
           type="text"
