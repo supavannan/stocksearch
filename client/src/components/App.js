@@ -72,7 +72,7 @@ class App extends Component {
         <BrowserRouter>
           <div>
             <Header />
-            <Route exact path="/" component={Landing} />
+            {/* <Route exact path="/" component={Landing} /> */}
             <Route exact path="/dashboard" component={Dashboard} />
             <Route path="/dashboard/configure" component={Configure} />
             <Table
