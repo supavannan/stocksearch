@@ -9,9 +9,10 @@ import { Button, IconButton } from "@material-ui/core";
 const useStyles = makeStyles((theme) => ({
   root: {
     flexGrow: 1,
+    backgroundColor: "#0d824b",
   },
   menuButton: {
-    marginRight: theme.spacing(2),
+    marginRight: theme.spacing(1),
   },
   title: {
     flexGrow: 1,
@@ -22,8 +23,8 @@ const Header = (props) => {
   const classes = useStyles();
 
   return (
-    <div className={classes.root}>
-      <AppBar position="static">
+    <div className={classes.root} backgroundColor="black">
+      <AppBar position="static" className={classes.root}>
         <Toolbar>
           <IconButton
             edge="start"
@@ -41,12 +42,6 @@ const Header = (props) => {
       </AppBar>
     </div>
   );
-
-  //   return (
-  //     <div>
-  //       <h2>Stock Searcher</h2>
-  //     </div>
-  //   );
 };
 
 export default Header;

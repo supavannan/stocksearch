@@ -13,6 +13,7 @@ const CustomCheckbox = (props) => {
           checked={tableHeadings[name]}
           onChange={() => updateHeadings(name, !tableHeadings[name])}
           name={name}
+          color="primary"
         />
       }
       label={name}

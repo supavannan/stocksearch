@@ -1,5 +1,8 @@
 import React, { Component, useState } from "react";
 import { BrowserRouter, Route } from "react-router-dom";
+import { connect } from "react-redux";
+import * as actions from "../actions";
+
 import Header from "./Header";
 import Table from "./Table";
 import Form from "./Form";
@@ -20,9 +23,7 @@ const tableHeadings = {
 //const Header = () => <h2>Stock Search</h2>;
 const Dashboard = () => <h2>Dashboard</h2>;
 const Configure = () => <h2>Configure</h2>;
-const Landing = () => (
-  <h2>Welcome to Stock Search - Login to Start Searching</h2>
-);
+const Landing = () => <h2>Welcome to Stock Search</h2>;
 
 class App extends Component {
   state = {
@@ -30,17 +31,18 @@ class App extends Component {
     tableHeadings: tableHeadings,
   };
 
+  componentDidMount() {
+    this.props.fetchUser();
+  }
+
   removeStock = (index) => {
     const { stocks } = this.state;
-    console.log(index);
-    console.log(stocks);
     this.setState({
-      //filter out the given index and return new array
+      //filter out (remove) given index and return new array
       stocks: stocks.filter((stock, i) => {
         return i !== index;
       }),
     });
-    //console.log(stocks);
   };
 
   updateHeadings = (heading, newCheckState) => {
@@ -72,7 +74,7 @@ class App extends Component {
         <BrowserRouter>
           <div>
             <Header />
-            {/* <Route exact path="/" component={Landing} /> */}
+            <Route exact path="/" component={Landing} />
             <Route exact path="/dashboard" component={Dashboard} />
             <Route path="/dashboard/configure" component={Configure} />
             <Table
@@ -92,4 +94,5 @@ class App extends Component {
   }
 }
 
-export default App;
+//actions will be assigned as props to the App component
+export default connect(null, actions)(App);

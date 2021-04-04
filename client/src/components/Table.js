@@ -33,7 +33,7 @@ const TableHeader = (props) => {
       <tr>
         {headings}
         <th>Remove</th>
-        <th>Row</th>
+        {/* <th>Row</th> */}
       </tr>
     </thead>
   );
@@ -64,7 +64,7 @@ class TableRow extends Component {
             <DeleteIcon />
           </IconButton>
         </td>
-        <td>{index}</td>
+        {/* <td>{index}</td> */}
       </tr>
     );
   }

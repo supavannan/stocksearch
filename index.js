@@ -6,6 +6,7 @@ const keys = require("./config/keys");
 const path = require("path");
 
 require("./models/User");
+require("./models/Profile");
 //must be after requiring User model
 require("./services/passport");
 
