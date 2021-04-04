@@ -5,14 +5,15 @@ import DeleteIcon from "@material-ui/icons/Delete";
 
 const headingsInfo = {
   Symbol: { name: "Symbol", viewing: true },
-  EVToEBITDA: { name: "EV / EBITDA", viewing: true },
-  TrailingPE: { name: "Trailing PE", viewing: true },
-  ForwardPE: { name: "Forward PE", viewing: true },
-  ReturnOnEquityTTM: { name: "ROE (TTM)", viewing: true },
-  RevenueTTM: { name: "Revenue (TTM)", viewing: true },
-  BookValue: { name: "Book Value", viewing: true },
-  Beta: { name: "Beta", viewing: true },
-  PEGRatio: { name: "PEG Ratio" },
+  EVToEBITDA: { name: "EV / EBITDA", viewing: "small" },
+  TrailingPE: { name: "Trailing PE", viewing: "small" },
+  ForwardPE: { name: "Forward PE", viewing: "small" },
+  ReturnOnEquityTTM: { name: "ROE (TTM)", viewing: "small" },
+  RevenueTTM: { name: "Revenue (TTM)", viewing: "big" },
+  BookValue: { name: "Book Value", viewing: "small" },
+  Beta: { name: "Beta", viewing: "small" },
+  PEGRatio: { name: "PEG Ratio", viewing: "small" },
+  MarketCapitalization: { name: "Market Cap", viewing: "big" },
 };
 
 const TableHeader = (props) => {
@@ -39,6 +40,27 @@ const TableHeader = (props) => {
   );
 };
 
+const formatFigure = (figure) => {
+  let newFigure = Number(figure);
+  return newFigure / 2.0;
+};
+
+function convertToCurrencySystem(labelValue) {
+  const sign = Math.sign(Number(labelValue));
+  // Nine Zeroes for Billions
+  return Math.abs(Number(labelValue)) >= 1.0e12
+    ? sign * (Math.abs(Number(labelValue)) / 1.0e12).toFixed(2) + "T"
+    : Math.abs(Number(labelValue)) >= 1.0e9
+    ? sign * (Math.abs(Number(labelValue)) / 1.0e9).toFixed(2) + "B"
+    : // Six Zeroes for Millions
+    Math.abs(Number(labelValue)) >= 1.0e6
+    ? sign * (Math.abs(Number(labelValue)) / 1.0e6).toFixed(2) + "M"
+    : // Three Zeroes for Thousands
+    Math.abs(Number(labelValue)) >= 1.0e3
+    ? sign * (Math.abs(Number(labelValue)) / 1.0e3).toFixed(2) + "K"
+    : sign * Math.abs(Number(labelValue));
+}
+
 class TableRow extends Component {
   state = {
     stateData: {},
@@ -48,12 +70,25 @@ class TableRow extends Component {
     const { data } = this.props;
   }
 
+  formatFigure(figure) {
+    let newFigure = figure;
+    return figure / 2.0;
+  }
+
   render() {
     const { data, removeStock, index, tableHeadings } = this.props;
     const elements = [];
     for (let heading in tableHeadings) {
       if (tableHeadings[heading]) {
-        elements.push(<td>{data[heading]}</td>);
+        if (headingsInfo[heading].viewing == "big") {
+          //elements.push(<td>{formatFigure(Number(data[heading]))}</td>);
+          elements.push(<td>{convertToCurrencySystem(data[heading])}</td>);
+        } else if (headingsInfo[heading].viewing == "small") {
+          //elements.push(<td>{formatFigure(Number(data[heading]))}</td>);
+          elements.push(<td>{Number(data[heading]).toFixed(2)}</td>);
+        } else {
+          elements.push(<td>{data[heading]}</td>);
+        }
       }
     }
     return (

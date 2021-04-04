@@ -10,11 +10,12 @@ import CheckboxOptions from "./CheckboxOptions";
 
 const tableHeadings = {
   Symbol: true,
+  MarketCapitalization: true,
   EVToEBITDA: true,
   TrailingPE: true,
   ForwardPE: true,
   PEGRatio: true,
-  ReturnOnEquityTTM: true,
+  ReturnOnEquityTTM: false,
   RevenueTTM: true,
   BookValue: false,
   Beta: false,
