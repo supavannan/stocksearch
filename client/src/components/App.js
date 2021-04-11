@@ -7,6 +7,7 @@ import Header from "./Header";
 import Table from "./Table";
 import Form from "./Form";
 import CheckboxOptions from "./CheckboxOptions";
+import Graphs from "./Graphs";
 
 const tableHeadings = {
   Symbol: true,
@@ -24,7 +25,7 @@ const tableHeadings = {
 //const Header = () => <h2>Stock Search</h2>;
 const Dashboard = () => <h2>Dashboard</h2>;
 const Configure = () => <h2>Configure</h2>;
-const Landing = () => <h2>Welcome to Stock Search</h2>;
+const Landing = () => <h2>Welcome to Stock Scan</h2>;
 
 class App extends Component {
   state = {
@@ -87,6 +88,12 @@ class App extends Component {
             <CheckboxOptions
               tableHeadings={tableHeadings}
               updateHeadings={this.updateHeadings}
+            />
+            <br />
+            <Graphs
+              stockData={stocks}
+              removeStock={this.removeStock}
+              tableHeadings={tableHeadings}
             />
           </div>
         </BrowserRouter>

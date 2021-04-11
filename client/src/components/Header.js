@@ -35,7 +35,7 @@ const Header = (props) => {
             <MenuIcon />
           </IconButton>
           <Typography variant="h6" className={classes.title}>
-            Stock Search
+            Stock Scan
           </Typography>
           <Button color="inherit">Login</Button>
         </Toolbar>
