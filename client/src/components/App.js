@@ -7,7 +7,8 @@ import Header from "./Header";
 import Table from "./Table";
 import Form from "./Form";
 import CheckboxOptions from "./CheckboxOptions";
-import Graphs from "./Graphs";
+import Graphs from "./BarGraph";
+import BarGraph from "./BarGraph";
 
 const tableHeadings = {
   Symbol: true,
@@ -20,6 +21,19 @@ const tableHeadings = {
   RevenueTTM: true,
   BookValue: false,
   Beta: false,
+};
+
+const headingsInfo = {
+  Symbol: { name: "Symbol", viewing: true },
+  EVToEBITDA: { name: "EV / EBITDA", viewing: "small" },
+  TrailingPE: { name: "Trailing PE", viewing: "small" },
+  ForwardPE: { name: "Forward PE", viewing: "small" },
+  ReturnOnEquityTTM: { name: "ROE (TTM)", viewing: "small" },
+  RevenueTTM: { name: "Revenue (TTM)", viewing: "big" },
+  BookValue: { name: "Book Value", viewing: "small" },
+  Beta: { name: "Beta", viewing: "small" },
+  PEGRatio: { name: "PEG Ratio", viewing: "small" },
+  MarketCapitalization: { name: "Market Cap", viewing: "big" },
 };
 
 //const Header = () => <h2>Stock Search</h2>;
@@ -83,6 +97,7 @@ class App extends Component {
               stockData={stocks}
               removeStock={this.removeStock}
               tableHeadings={tableHeadings}
+              headingsInfo={headingsInfo}
             />
             <Form handleSubmit={this.handleTickerSubmit} />
             <CheckboxOptions
@@ -90,7 +105,7 @@ class App extends Component {
               updateHeadings={this.updateHeadings}
             />
             <br />
-            <Graphs
+            <BarGraph
               stockData={stocks}
               removeStock={this.removeStock}
               tableHeadings={tableHeadings}

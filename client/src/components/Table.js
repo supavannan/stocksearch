@@ -3,22 +3,9 @@ import { Button } from "@material-ui/core";
 import IconButton from "@material-ui/core/IconButton";
 import DeleteIcon from "@material-ui/icons/Delete";
 
-const headingsInfo = {
-  Symbol: { name: "Symbol", viewing: true },
-  EVToEBITDA: { name: "EV / EBITDA", viewing: "small" },
-  TrailingPE: { name: "Trailing PE", viewing: "small" },
-  ForwardPE: { name: "Forward PE", viewing: "small" },
-  ReturnOnEquityTTM: { name: "ROE (TTM)", viewing: "small" },
-  RevenueTTM: { name: "Revenue (TTM)", viewing: "big" },
-  BookValue: { name: "Book Value", viewing: "small" },
-  Beta: { name: "Beta", viewing: "small" },
-  PEGRatio: { name: "PEG Ratio", viewing: "small" },
-  MarketCapitalization: { name: "Market Cap", viewing: "big" },
-};
-
 const TableHeader = (props) => {
   const headings = [];
-  const { tableHeadings } = props;
+  const { tableHeadings, headingsInfo } = props;
 
   for (let heading in tableHeadings) {
     if (tableHeadings[heading]) {
@@ -76,7 +63,13 @@ class TableRow extends Component {
   }
 
   render() {
-    const { data, removeStock, index, tableHeadings } = this.props;
+    const {
+      data,
+      removeStock,
+      index,
+      tableHeadings,
+      headingsInfo,
+    } = this.props;
     const elements = [];
     for (let heading in tableHeadings) {
       if (tableHeadings[heading]) {
@@ -106,7 +99,7 @@ class TableRow extends Component {
 }
 
 const TableBody = (props) => {
-  const { stockData, removeStock, tableHeadings } = props;
+  const { stockData, removeStock, tableHeadings, headingsInfo } = props;
   const rows = stockData.map((data, index) => {
     return (
       <TableRow
@@ -114,6 +107,7 @@ const TableBody = (props) => {
         data={data}
         removeStock={removeStock}
         tableHeadings={tableHeadings}
+        headingsInfo={headingsInfo}
       />
     );
   });
@@ -123,15 +117,19 @@ const TableBody = (props) => {
 class Table extends Component {
   render() {
     //passed from App component
-    const { stockData, removeStock, tableHeadings } = this.props;
+    const { stockData, removeStock, tableHeadings, headingsInfo } = this.props;
 
     return (
       <table>
-        <TableHeader tableHeadings={tableHeadings} />
+        <TableHeader
+          tableHeadings={tableHeadings}
+          headingsInfo={headingsInfo}
+        />
         <TableBody
           stockData={stockData}
           removeStock={removeStock}
           tableHeadings={tableHeadings}
+          headingsInfo={headingsInfo}
         />
       </table>
     );
