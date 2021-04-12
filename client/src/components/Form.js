@@ -37,7 +37,7 @@ class Form extends Component {
           id="ticker"
           value={ticker}
           onChange={this.handleChange}
-          style={{ width: "100%" }}
+          style={{ width: "50%" }}
           style={{ boxShadow: "0px 0px 2px 1px" }}
         />
         <br />

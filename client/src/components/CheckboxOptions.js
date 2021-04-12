@@ -5,7 +5,7 @@ import FormControlLabel from "@material-ui/core/FormControlLabel";
 import Checkbox from "@material-ui/core/Checkbox";
 
 const CustomCheckbox = (props) => {
-  const { tableHeadings, updateHeadings, name } = props;
+  const { tableHeadings, updateHeadings, name, headingsInfo } = props;
   return (
     <FormControlLabel
       control={
@@ -16,14 +16,14 @@ const CustomCheckbox = (props) => {
           color="primary"
         />
       }
-      label={name}
+      label={headingsInfo[name].name}
     />
   );
 };
 
 class CheckboxOptions extends Component {
   render() {
-    const { tableHeadings, updateHeadings } = this.props;
+    const { tableHeadings, updateHeadings, headingsInfo } = this.props;
     const checkboxes = [];
     for (let heading in tableHeadings) {
       //don't add a checkbox for ticker Symbol
@@ -32,6 +32,7 @@ class CheckboxOptions extends Component {
           <CustomCheckbox
             tableHeadings={tableHeadings}
             updateHeadings={updateHeadings}
+            headingsInfo={headingsInfo}
             name={heading}
           />
         );

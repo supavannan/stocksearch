@@ -7,7 +7,6 @@ import Header from "./Header";
 import Table from "./Table";
 import Form from "./Form";
 import CheckboxOptions from "./CheckboxOptions";
-import Graphs from "./BarGraph";
 import BarGraph from "./BarGraph";
 
 const tableHeadings = {
@@ -30,7 +29,7 @@ const headingsInfo = {
   ForwardPE: { name: "Forward PE", viewing: "small" },
   ReturnOnEquityTTM: { name: "ROE (TTM)", viewing: "small" },
   RevenueTTM: { name: "Revenue (TTM)", viewing: "big" },
-  BookValue: { name: "Book Value", viewing: "small" },
+  BookValue: { name: "Book Value / Share", viewing: "small" },
   Beta: { name: "Beta", viewing: "small" },
   PEGRatio: { name: "PEG Ratio", viewing: "small" },
   MarketCapitalization: { name: "Market Cap", viewing: "big" },
@@ -103,12 +102,14 @@ class App extends Component {
             <CheckboxOptions
               tableHeadings={tableHeadings}
               updateHeadings={this.updateHeadings}
+              headingsInfo={headingsInfo}
             />
             <br />
             <BarGraph
               stockData={stocks}
               removeStock={this.removeStock}
               tableHeadings={tableHeadings}
+              headingsInfo={headingsInfo}
             />
           </div>
         </BrowserRouter>
